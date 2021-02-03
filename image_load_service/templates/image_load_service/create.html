@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить изображение</title>
+</head>
+<body>
+<a href="{% url 'home' %}">Назад к списку</a>
+        <h2>Новое изображение</h2>
+        {% if form.is_multipart %}
+          <form enctype="multipart/form-data" method="post">
+        {% else %}
+          <form method="post">
+        {% endif %}
+         {% csrf_token %}
+
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message|safe }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+          {% for field in form.visible_fields %}
+              {% if field.errors %}
+                   <ul>
+                       {% for error in field.errors %}
+                       <li><em>{{ error | escape}}</em></li>
+                       {% endfor %}
+                   </ul>
+              {% endif %}
+              <p>{{ field.label_tag }}<br>{{ field }}<br>{{ field.help_text }}</p>
+           {% endfor %}
+              {{ message }}
+            <input type="submit" value="Добавить">
+        </form>
+</body>
+</html>
+
+
+
+

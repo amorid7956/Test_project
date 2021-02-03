@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Список изображений</title>
+</head>
+<body>
+<h2>Список изображений</h2>
+{% if not images %}
+<p>Нет доступных изображений</p>
+{% else %}
+{% for img in images %}
+        <div>
+            <a href="{% url 'change' img.pk %}">{{ img.original_image.name }}</a>
+        </div>
+{% endfor %}
+{% endif %}
+<br>
+<a href="{% url 'add' %}">Добавить изображение</a>
+</body>
+</html>
